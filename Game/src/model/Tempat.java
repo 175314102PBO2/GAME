@@ -7,7 +7,12 @@ package model;
 
 import java.awt.Color;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,9 +22,7 @@ public class Tempat {
     private int tinggi; // tinggi tempat Game
     private int lebar;  // lebar tempat Game
     private ArrayList<Sel> daftarSel; // daftar sel
-
     private String isi; // isi file konfigurasi
-    
     public static int batasKanan;
     public static int batasBawah;
     
@@ -35,7 +38,31 @@ public class Tempat {
      * @param file 
      */
     public void bacaKonfigurasi(File file){
-        
+           FileInputStream fis;
+        try {
+            fis = new FileInputStream(file);
+            String hasil = "";
+            int dataInt;
+            int baris=0;
+            int kolom=0;
+            while ((dataInt = fis.read()) != -1) {
+                hasil = hasil + (char) dataInt;
+                if((char) dataInt != '\n'){
+                    if((char) dataInt != '\t'){
+                        Sel sel = new Sel(baris,kolom, (char) dataInt);
+                        this.tambahSel(sel);
+                        kolom++;
+                    }else{
+                        baris++;
+                    }
+                }
+            }
+            setIsi(hasil);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     /**
      * Fungsi penambah daftar sel.

@@ -16,11 +16,10 @@ public class Sel {
     private int posisiY; // nomor kolom, dimulai dari nol (0)
     private int lebar;
     private int tinggi;
-
     private char nilai;
-
     private Color warna;
 
+    
     public Sel() {
     }
 
