@@ -17,53 +17,63 @@ import model.Tempat;
  *
  * @author user only
  */
-public class TempatPanel extends JPanel {
-    private Tempat tempat;
 
-    public TempatPanel() {
-    }
+    public class TempatPanel extends JPanel {
 
-    public TempatPanel(Tempat tempat) {
-        this.tempat = tempat;
-    }
+        private Tempat tempat;
 
+        public TempatPanel() {
+        }
 
-    /**
-     * Fungsi untuk menggambar di panel
-     *
-     * @param g
-     */
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+        public TempatPanel(Tempat tempat) {
+            this.tempat = tempat;
+        }
 
-        // proses gambar daftar sel
-        // asumsi sel berbentuk lingkaran
-        // gambar lingkaran dengan fillOval dengan diameter 20
-        if (tempat != null) {
-            for (int i = 0; i < tempat.getDaftarSel().size(); i++) {
-                Sel sel = tempat.getDaftarSel().get(i);
-                g.setColor(sel.getWarna());
-                g.fillOval(sel.getPosisiX(),
-                        sel.getPosisiY(),
-                        sel.getLebar(),
-                        sel.getTinggi());
+        /**
+         * Fungsi untuk menggambar di panel
+         *
+         * @param g
+         */
+        @Override
+        public void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.fillRect(0, 0, Tempat.batasKanan, Tempat.batasBawah);
+            // proses gambar daftar sel
+            // asumsi sel berbentuk lingkaran
+            // gambar lingkaran dengan fillOval dengan diameter 20
+            if (tempat != null) {
+                for (int i = 0; i < tempat.getDaftarSel().size(); i++) {
+                    Sel sel = tempat.getDaftarSel().get(i);
+                    if (sel.getNilai() == '@') {
+                        g.setColor(sel.getWarna());
+                        g.fillRect(sel.getPosisiX(),
+                                sel.getPosisiY(),
+                                sel.getLebar(),
+                                sel.getTinggi());
+                    } else {
+                        g.setColor(sel.getWarna());
+                        g.fillOval(sel.getPosisiX(),
+                                sel.getPosisiY(),
+                                sel.getLebar(),
+                                sel.getTinggi());
+                    }
+                }
             }
         }
+
+        /**
+         * @return the tempat
+         */
+        public Tempat getTempat() {
+            return tempat;
+        }
+
+        /**
+         * @param tempat the tempat to set
+         */
+        public void setTempat(Tempat tempat) {
+            this.tempat = tempat;
+        }
+
     }
 
-    /**
-     * @return the tempat
-     */
-    public Tempat getTempat() {
-        return tempat;
-    }
-
-    /**
-     * @param tempat the tempat to set
-     */
-    public void setTempat(Tempat tempat) {
-        this.tempat = tempat;
-    }
-
-}
