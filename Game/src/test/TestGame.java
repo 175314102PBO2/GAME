@@ -6,7 +6,7 @@
 package test;
 
 import java.awt.Color;
-import model.Sel;
+import  model.Sel;
 import model.Tempat;
 import view.GameFrame;
 import view.TempatPanel;
