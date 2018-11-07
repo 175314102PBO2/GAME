@@ -46,14 +46,14 @@ import model.Tempat;
                     Sel sel = tempat.getDaftarSel().get(i);
                     if (sel.getNilai() == '@') {
                         g.setColor(sel.getWarna());
-                        g.fillRect(sel.getPosisiX(),
-                                sel.getPosisiY(),
+                        g.fillRect(sel.getPosisiY()*sel.getLebar(),
+                                sel.getPosisiX()*sel.getTinggi(),
                                 sel.getLebar(),
                                 sel.getTinggi());
                     } else {
-                        g.setColor(sel.getWarna());
-                        g.fillOval(sel.getPosisiX(),
-                                sel.getPosisiY(),
+                        g.setColor(sel.getWarna().brighter());
+                        g.fillOval(sel.getPosisiY() ,
+                                sel.getPosisiX(),
                                 sel.getLebar(),
                                 sel.getTinggi());
                     }
