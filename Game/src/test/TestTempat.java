@@ -19,7 +19,7 @@ public class TestTempat {
         int returnVal = jf.showOpenDialog(null);
         Tempat tempat = new Tempat();
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            tempat.bacaKonfigurasi(jf.getSelectedFile());
+            tempat.bacaFileKonfigurasi(jf.getSelectedFile());
             System.out.println("Isi peta = ");
             System.out.println(tempat.getIsi());
             if(tempat.getDaftarSel()!=null){
