@@ -19,56 +19,64 @@ import java.util.logging.Logger;
  * @author user only
  */
 public class Tempat {
+
     private int tinggi; // tinggi tempat Game
     private int lebar;  // lebar tempat Game
     private ArrayList<Sel> daftarSel; // daftar sel
     private String isi; // isi file konfigurasi
     public static int batasKanan;
     public static int batasBawah;
-    
+    private ArrayList<Sel> isiTempat = new ArrayList<Sel>();
+
     public Tempat() {
         daftarSel = new ArrayList<Sel>();
     }
-    
-    
-    
+
     /**
-     * Fungsi pembaca file konfigurasi.
-     * Hasil pembacaan file akan disimpan di atribut 'isi'.
-     * @param file 
+     * Fungsi pembaca file konfigurasi. Hasil pembacaan file akan disimpan di
+     * atribut 'isi'.
+     *
+     * @param file
      */
-    public void bacaKonfigurasi(File file){
-           FileInputStream fis;
+    public void bacaFileKonfigurasi(File file) {
         try {
-            fis = new FileInputStream(file);
-            String hasil = "";
-            int dataInt;
-            int baris=0;
-            int kolom=0;
+
+            String HasilBaca = "";
+            int dataInt = 0;
+            FileInputStream fis = new FileInputStream(file);
+            int baris = 0;
+
             while ((dataInt = fis.read()) != -1) {
-                hasil = hasil + (char) dataInt;
-                if((char) dataInt != '\n'){
-                    if((char) dataInt != '\t'){
-                        Sel sel = new Sel(baris,kolom, (char) dataInt);
-                        this.tambahSel(sel);
-                        kolom++;
-                    }else{
-                        baris++;
+                if ((char) dataInt == '\n') {
+                    for (int i = 0; i < HasilBaca.length(); i++) {
+                        Sel sel = new Sel();
+                        sel.setNilai(HasilBaca.charAt(i));
+                        sel.setPosisiX(baris);
+                        sel.setPosisiY(i);
+                        isiTempat.add(sel);
                     }
+                    tinggi++;
+                    baris++;
+                    HasilBaca = "";
+                } else {
+                    HasilBaca = HasilBaca + (char) dataInt;
+                    lebar++;
                 }
             }
-            setIsi(hasil);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
+
     /**
      * Fungsi penambah daftar sel.
-     * @param sel 
+     *
+     * @param sel
      */
-    public void tambahSel(Sel sel){
+    public void tambahSel(Sel sel) {
         daftarSel.add(sel);
     }
 
